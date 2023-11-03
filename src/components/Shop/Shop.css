@@ -29,9 +29,16 @@
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    text-align: center;
     padding: 10px;
     margin-bottom: 50px;
+}
+
+.pagination button {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.pagination .selected {
+    background-color: #FF9900;
 }
