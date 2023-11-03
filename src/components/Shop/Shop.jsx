@@ -7,10 +7,14 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    // const [cart, setCart] = useState([]);
+
+    const cart = useLoaderData();
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0);
-    const { count } = useLoaderData();
+    // const { count } = useLoaderData();
+    // const count = 76;
+    const [count, setCount] = useState(0);
     const numberOfPages = Math.ceil(count / itemsPerPage);
 
     // const pages = [];
@@ -20,6 +24,12 @@ const Shop = () => {
     const pages = [...Array(numberOfPages).keys()];
     console.log(pages);
 
+    useEffect(() => {
+        fetch('http://localhost:5000/productsCount')
+            .then(res => res.json())
+            .then(data => setCount(data.count))
+    }, []);
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemsPerPage}`)
@@ -28,7 +38,7 @@ const Shop = () => {
     }, [currentPage, itemsPerPage]);
 
 
-    useEffect(() => {
+    /* useEffect(() => {
         const storedCart = getShoppingCart();
         const savedCart = [];
         // step 1: get id of the addedProduct
@@ -46,7 +56,7 @@ const Shop = () => {
         }
         // step 5: set the cart
         setCart(savedCart);
-    }, [products])
+    }, [products]) */
 
 
     const handleAddToCart = (product) => {
@@ -110,6 +120,7 @@ const Shop = () => {
                     ></Product>)
                 }
             </div>
+
             <div className="cart-container">
                 <Cart
                     cart={cart}
