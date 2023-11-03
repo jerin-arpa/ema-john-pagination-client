@@ -42,3 +42,7 @@
 .pagination .selected {
     background-color: #FF9900;
 }
+
+.selects {
+    padding: 10px;
+}
